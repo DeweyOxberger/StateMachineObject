@@ -1,3 +1,5 @@
+// https://github.com/DeweyOxberger/StateMachineObject
+
 #include "StateMachine.h"
 
 StateMachine::StateMachine(StateMethod initialState)

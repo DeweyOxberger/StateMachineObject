@@ -61,15 +61,15 @@ protected:
   { 
     digitalWrite(13, HIGH);  // led on
     delay.setDelay(onDelay);
-    setChild(&delay);   // kick off a delay
+    setChild(&delay);   // divert update() to running the delay
     setState(ACTION(ledOff));
   }
   void ledOff(void)
   {
-    digitalWrite(13, LOW);
+    digitalWrite(13, LOW);  // led off
     delay.setDelay(offDelay);
-    setChild(&delay);
-    setState(ACTION(initialState)); // do it all over again
+    setChild(&delay);   // divert update() to running the delay
+    setState(ACTION(initialState)); // after the delay do it all over again
   }
 };
 

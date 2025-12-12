@@ -1,8 +1,10 @@
 #ifndef STATE_MACHINE_H
 #define STATE_MACHINE_H
 
+// https://github.com/DeweyOxberger/StateMachineObject
 
 #include <functional>
+
 #define ACTION(a) [this]() { this->a(); }
 
 //typedef void (*StateMethod)(void);

@@ -2,6 +2,8 @@
 #include <Arduino.h>
 #include "StateMachine.h"
 
+// Basic tests to make sure I didn't botch anything
+
 // simple state machine that allows monitoring progress via some public data
 class Machine1 : public StateMachine
 {
