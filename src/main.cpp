@@ -1,41 +1,10 @@
 #include <Arduino.h>
 
 #include <StateMachine.h>
+#include <DelayTask.h>
+#include <DomeTask.h>
 
-// Blinky done as a state machine.
-
-// define a "delay" state machine. This is "non-blocking".
-// You keep calling update() until it isDone()
-class delayTask : public StateMachine
-{
-public:
-  delayTask() : StateMachine(ACTION(initialState))
-  {
-
-  }
-
-  void setDelay(uint32_t time_mSec) { duration = time_mSec; }
-
-protected:
-
-  uint32_t duration;
-  uint32_t start_time;
-
-  void initialState(void) 
-  { 
-    start_time = millis(); 
-    setState(ACTION(checkIfDone));
-  }
-
-  void checkIfDone(void) 
-  { 
-    uint32_t time = millis() - start_time;
-    if (time >= duration)
-    {
-      done();
-    }
-  }
-};
+// Blinky done as a state machine. Also running a stepper motor randomly
 
 // State Machine to handle blinking the LED forever
 class ledTask : public StateMachine
@@ -55,6 +24,7 @@ protected:
 
   uint32_t offDelay;
   uint32_t onDelay;
+
   delayTask delay;
 
   void initialState(void) 
@@ -74,6 +44,7 @@ protected:
 };
 
 ledTask blinky;
+domeTask dome;
 
 void setup() {
   // put your setup code here, to run once:
@@ -84,6 +55,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   blinky.update();
+
+  dome.update();
   // doOtherStuff.update();
 
   // notes: at no point does blinky.update() take more than a few hundred usec to return. 
